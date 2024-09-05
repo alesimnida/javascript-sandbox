@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JS Notes Kit</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+        </div>
+        <div data-key="66" class="key">
+            <kbd>B</kbd>
+        </div>
+        <div data-key="67" class="key">
+            <kbd>C</kbd>
+        </div>
+    </div>
+</body>
+
+<audio data-key="65" src="sounds/A.wav"></audio>
+<audio data-key="66" src="sounds/B.wav"></audio>
+<audio data-key="67" src="sounds/C.wav"></audio>
+
+<script>
+    function events(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+        //console.log(key)
+        //console.log(audio)
+        if (!audio) return;
+        audio.currentTime = 0; //rewind to start
+        audio.play();
+        key.classList.add('playing');
+    }
+    window.addEventListener('keydown', events)
+
+    function removeTransition(e) {
+        console.log(e)
+        if (e.propertyName !== 'border-top-color') return;
+        this.classList.remove('playing'); //this equal to whatever called against > key (addeventlisterner was called on key)
+    }
+    const keys = document.querySelectorAll('.key')
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition)) //transitionEnd when css transition has finished
+    //forEach bc we have an array of elements and we need to put a listener on them (couldn't be done with keys.addListener)
+
+</script>
+
+</html>
