@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JS Notes Kit</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-face">
+          <div class="hand hour-hand"></div>
+          <div class="hand min-hand"></div>
+          <div class="hand second-hand"></div>
+        </div>
+
+    <script>
+        //definire stesso tick e differenzarlo con suffissi richiamabili con .suffisso
+        const secondTick = document.querySelector('.second-hand'); 
+        const minTick = document.querySelector('.min-hand');
+        const hoursTick = document.querySelector('.hour-hand'); 
+
+        function setTick(e) {
+            const date = new Date()
+            const seconds = date.getSeconds();
+            //console.log(seconds)
+            const angleSec = ((seconds / 60) * 360) + 90
+            //console.log(secondTick);
+            secondTick.style.transform = `rotate(${angleSec}deg)`
+            const min = date.getMinutes();
+            const angleMin = ((min / 60) * 360) + ((seconds/60)*6) + 90;
+            minTick.style.transform = `rotate(${angleMin}deg)`
+            const hour = date.getHours();
+            const angleHours =((hour / 12) * 360) + ((min/60)*30) + 90;
+            hoursTick.style.transform = `rotate(${angleHours}deg)`
+        }
+        setInterval(setTick, 1000);
+    </script>
+
+</body>
